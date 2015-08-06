@@ -31,7 +31,7 @@ import java.util.logging.Handler;
 import java.util.logging.LogRecord;
 
 public class MainActivity extends Activity implements YahooWeatherInfoListener,
-        YahooWeatherExceptionListener , Runnable{
+        YahooWeatherExceptionListener {
 
     private ImageView mIvWeather0;
     private TextView mTvWeather0;
@@ -45,7 +45,7 @@ public class MainActivity extends Activity implements YahooWeatherInfoListener,
     private YahooWeather mYahooWeather = YahooWeather.getInstance(5000, 5000, true);
 
     private ProgressDialog mProgressDialog;
-    private Thread thread;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -165,19 +165,23 @@ public class MainActivity extends Activity implements YahooWeatherInfoListener,
     @Override
     public void onFailConnection(final Exception e) {
         // TODO Auto-generated method stub
+        setNoResultLayout();
+        Toast.makeText(getApplicationContext(),"Fail Connection", Toast.LENGTH_SHORT).show();
 
     }
 
     @Override
     public void onFailParsing(final Exception e) {
         // TODO Auto-generated method stub
-
+        setNoResultLayout();;
+        Toast.makeText(getApplicationContext(),"Fail Parsing", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onFailFindLocation(final Exception e) {
         // TODO Auto-generated method stub
-
+        setNoResultLayout();
+        Toast.makeText(getApplication(),"Fail find location", Toast.LENGTH_SHORT).show();
     }
 
     private void setNormalLayout() {
@@ -223,8 +227,4 @@ public class MainActivity extends Activity implements YahooWeatherInfoListener,
         }
     }
 
-    @Override
-    public void run() {
-
-    }
 }
